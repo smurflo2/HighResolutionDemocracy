@@ -1,0 +1,28 @@
+#root {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #282c34;
+  color: white;
+}
+
+main > section {
+  padding: 0 50px;
+}
+
+button,
+button[type="submit"] {
+  color: white;
+  background-color: blueviolet;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+  width: fit-content;
+}
+
+input,
+textarea {
+  border-radius: 8px;
+  padding: 5px;
+}
