@@ -26,7 +26,7 @@ const ProposalSummaryCard: React.FC<ProposalSummaryCardProps> = ({
     const percentNay = (nayVotes / totalVotes) * 100;
 
     return (
-        <div className="border-white border-solid border-2 rounded-md p-2 flex flex-col items-center gap-2">
+        <div className="border-white border-solid border-2 rounded-md p-2 flex flex-col items-center gap-2 w-[1000px]">
             <h3 className="font-bold text-[24px]">{proposal.title}</h3>
             <span>{proposal.description}</span>
             <div id="icons" className="flex justify-end mb-1">

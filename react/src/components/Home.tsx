@@ -62,7 +62,7 @@ const Home: React.FC = () => {
 
     return (
         <>
-            <section>
+            <section className="flex flex-col items-center">
                 <h1>Home</h1>
                 <div className="flex gap-2 justify-center">
                     <Link to="/propose">
