@@ -33,12 +33,12 @@ const Home: React.FC = () => {
             <h1>Home</h1>
             <div>
                 <Link to="/propose">
-                    <button>Propose</button>
+                    <button className="btn-1">Propose</button>
                 </Link>
             </div>
 
             <section className="flex flex-col gap-4 mt-6">
-                <h2 className="text-[32px] font-bold underline">Active Proposals</h2>
+                <h2 className="text-[28px] font-bold underline">Active Proposals</h2>
                 {staticProposals.map((proposal, index) => (
                     <ProposalSummaryCard key={index} proposal={proposal} />
                 ))}

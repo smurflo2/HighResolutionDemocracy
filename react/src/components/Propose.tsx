@@ -33,13 +33,13 @@ const Propose: React.FC = () => {
                     onChange={(e) => setDescription(e.target.value)}
                 />
 
-                <button type="submit" className="mx-auto">
+                <button type="submit" className="btn-1 mx-auto">
                     Propose
                 </button>
             </form>
 
             <Link to="/">
-                <button className="absolute top-1 left-1">Home</button>
+                <button className="btn-1 absolute top-1 left-1">Home</button>
             </Link>
         </section>
     );

@@ -1,5 +1,6 @@
 import React from "react";
 import DiscussionSvg from "svgs/DiscussionSvg";
+import QuadraticVoter from "components/QuadraticVoter";
 
 export type Proposal = {
     title: string;
@@ -25,24 +26,25 @@ const ProposalSummaryCard: React.FC<ProposalSummaryCardProps> = ({
     console.log("percentNay:", percentNay);
 
     return (
-        <div className="border-white border-solid border-2 rounded-md p-2">
+        <div className="border-white border-solid border-2 rounded-md p-2 flex flex-col items-center gap-2">
             <h3 className="font-bold text-[24px]">{proposal.title}</h3>
             <span>{proposal.description}</span>
             <div id="icons" className="flex justify-end mb-1">
                 <span className="flex items-center gap-1">
-                    1 <DiscussionSvg />
+                    <DiscussionSvg /> 1 Discussion
                 </span>
             </div>
-            <div className="flex h-6 rounded-md overflow-hidden">
+            <div className="flex h-6 rounded-md overflow-hidden w-[100%]">
                 <div
-                    className={`bg-red-600 w-[${percentNay}%] h-[100%]`}
+                    className={`bg-red-500 w-[${percentNay}%] h-[100%]`}
                     style={{ width: `${percentNay}%` }}
                 />
                 <div
-                    className={`bg-green-600 h-[100%]`}
+                    className={`bg-green-500 h-[100%]`}
                     style={{ width: `${percentYay}%` }}
                 />
             </div>
+            <QuadraticVoter />
         </div>
     );
 };
