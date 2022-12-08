@@ -1,7 +1,7 @@
 # High Resolution Democracy
 
 ## tl;dr
-Give citizens more input on the lawmaking process
+Give citizens more input on the lawmaking process - Participatory Democracy!
 
 
 ## The problem / Context
