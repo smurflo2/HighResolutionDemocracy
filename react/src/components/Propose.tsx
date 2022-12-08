@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import useVoteContract from "hooks/useVoteContract";
+
 const Propose: React.FC = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [districtId, setDistrictId] = useState(1);
+
+    const { send: submitProposal } = useVoteContract("createProposal");
 
     const handlePropose = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆");
-        console.log("title:", title);
-        console.log("description:", description);
-        console.log("TODO ethers and whatnot");
+
+        submitProposal(title, description, districtId)
+            .then((res: any) => console.log(res))
+            .catch((res: any) => console.log(res));
 
         // probably reroute to proposal page?
         setTitle("");
         setDescription("");
+        setDistrictId(1);
     };
 
     return (
@@ -31,6 +37,12 @@ const Propose: React.FC = () => {
                     placeholder="Description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                />
+                <input
+                    type="number"
+                    placeholder="Voter District Id"
+                    value={districtId}
+                    onChange={(e) => setDistrictId(parseInt(e.target.value))}
                 />
 
                 <button type="submit" className="btn-1 mx-auto">

@@ -1,12 +1,18 @@
 import React, { useState } from "react";
+import { ethers } from "ethers";
 import Arrow from "svgs/ArrowSvg";
 
-import useMetamask from "hooks/useMetamask";
+import useVoteContract from "hooks/useVoteContract";
 
-const QuadraticVoter: React.FC = () => {
+type QuadraticVoterProps = {
+    proposalID: ethers.BigNumber;
+};
+
+const QuadraticVoter: React.FC<QuadraticVoterProps> = ({ proposalID }) => {
     const [votes, setVotes] = useState(0);
     const cost = votes * votes;
 
+    const { send: submitVote } = useVoteContract("vote");
     // TODO if we had the proposal state STOREd somewhere shared then the arrows could update in real time
 
     const handleArrowClick = (isUp: boolean) => {
@@ -15,8 +21,8 @@ const QuadraticVoter: React.FC = () => {
     };
 
     const handleSubmit = () => {
-        console.log("🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀");
-        console.log("TODO wire this up");
+        const idNumber = parseInt(ethers.utils.formatUnits(proposalID, 0));
+        submitVote(idNumber, Math.abs(votes), votes > 0);
     };
 
     const arrowSize = "24px";

@@ -1,12 +1,14 @@
 import React from "react";
+import { ethers } from "ethers";
 import DiscussionSvg from "svgs/DiscussionSvg";
 import QuadraticVoter from "components/QuadraticVoter";
 
 export type Proposal = {
     title: string;
     description: string;
-    yayVotes: number;
-    nayVotes: number;
+    yVotes: ethers.BigNumber;
+    nVotes: ethers.BigNumber;
+    proposalID: ethers.BigNumber;
 };
 
 type ProposalSummaryCardProps = {
@@ -16,10 +18,12 @@ type ProposalSummaryCardProps = {
 const ProposalSummaryCard: React.FC<ProposalSummaryCardProps> = ({
     proposal,
 }) => {
-    // TODO beware divide by 0
-    const totalVotes = proposal.yayVotes + proposal.nayVotes;
-    const percentYay = (proposal.yayVotes / totalVotes) * 100;
-    const percentNay = (proposal.nayVotes / totalVotes) * 100;
+    const yayVotes = parseInt(ethers.utils.formatUnits(proposal.yVotes, 0));
+    const nayVotes = parseInt(ethers.utils.formatUnits(proposal.nVotes, 0));
+
+    const totalVotes = yayVotes + nayVotes || 1;
+    const percentYay = (yayVotes / totalVotes) * 100;
+    const percentNay = (nayVotes / totalVotes) * 100;
 
     return (
         <div className="border-white border-solid border-2 rounded-md p-2 flex flex-col items-center gap-2">
@@ -30,17 +34,22 @@ const ProposalSummaryCard: React.FC<ProposalSummaryCardProps> = ({
                     <DiscussionSvg /> 1 Discussion
                 </span>
             </div>
-            <div className="flex h-6 rounded-md overflow-hidden w-[100%]">
+            {(percentNay > 0 || percentYay > 0) && (
                 <div
-                    className={`bg-red-500 w-[${percentNay}%] h-[100%]`}
-                    style={{ width: `${percentNay}%` }}
-                />
-                <div
-                    className={`bg-green-500 h-[100%]`}
-                    style={{ width: `${percentYay}%` }}
-                />
-            </div>
-            <QuadraticVoter />
+                    className="flex h-6 rounded-md overflow-hidden w-[100%]"
+                    title={`Nay: ${nayVotes} | Yay: ${yayVotes}`}
+                >
+                    <div
+                        className={`bg-red-500 w-[${percentNay}%] h-[100%]`}
+                        style={{ width: `${percentNay}%` }}
+                    />
+                    <div
+                        className={`bg-green-500 h-[100%]`}
+                        style={{ width: `${percentYay}%` }}
+                    />
+                </div>
+            )}
+            <QuadraticVoter proposalID={proposal.proposalID} />
         </div>
     );
 };

@@ -1,4 +1,5 @@
 // import metamaskStore from "stores/MetamaskStore";
+import { ethers } from "ethers";
 import { useMetaMask } from "metamask-react";
 
 export const networks = {
@@ -32,6 +33,8 @@ const useMetamask = () => {
     const { status, connect, account, chainId, ethereum, switchChain } =
         useMetaMask();
 
+    const signer = new ethers.providers.Web3Provider(window.ethereum).getSigner();
+
     if (status === "initializing")
         console.log("Synchronisation with MetaMask ongoing...");
     if (status === "unavailable") console.log("MetaMask not available :(");
@@ -39,64 +42,7 @@ const useMetamask = () => {
     if (status === "connecting") console.log("Connecting...");
 
     if (status === "connected") {
-        console.log(`Connected account ${account} on chain ID ${chainId}`);
-        console.log("ethereum:", ethereum);
-
-        const ERC20TransferABI = [
-            {
-                constant: false,
-                inputs: [
-                    {
-                        name: "_to",
-                        type: "address",
-                    },
-                    {
-                        name: "_value",
-                        type: "uint256",
-                    },
-                ],
-                name: "transfer",
-                outputs: [
-                    {
-                        name: "",
-                        type: "bool",
-                    },
-                ],
-                payable: false,
-                stateMutability: "nonpayable",
-                type: "function",
-            },
-            {
-                constant: true,
-                inputs: [
-                    {
-                        name: "_owner",
-                        type: "address",
-                    },
-                ],
-                name: "balanceOf",
-                outputs: [
-                    {
-                        name: "balance",
-                        type: "uint256",
-                    },
-                ],
-                payable: false,
-                stateMutability: "view",
-                type: "function",
-            },
-        ];
-
-        const myAddress = "0x3a714cACE7EFA0AB73501E74225062beAce8869B";
-        // const DAI_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
-        const USDC_ADDRESS = "0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557";
-        // const daiToken = new ethereum.Contract(ERC20TransferABI, DAI_ADDRESS)
-        const usdcToken = new ethereum.Contract(ERC20TransferABI, USDC_ADDRESS);
-
-        usdcToken.methods.balanceOf(myAddress).then((x: any) => {
-            console.log("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥");
-            console.log("x:", x);
-        });
+        // console.log(`Connected account ${account} on chain ID ${chainId}`);
 
         // goerli only pls
         if (chainId !== networks.goerli) {
@@ -105,10 +51,12 @@ const useMetamask = () => {
     }
 
     return {
+        signer,
         status,
         connect,
         isGoerli: chainId === networks.goerli,
         switchChain,
+        account,
     };
 };
 
