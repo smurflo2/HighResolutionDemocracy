@@ -18,6 +18,7 @@ const QuadraticVoter: React.FC = () => {
     const arrowSize = "24px";
     return (
         <div className="flex flex-col items-center">
+            {/* TODO make the arrows flinch on click */}
             <div className="flex gap-2 items-center bg-slate-300 rounded-lg py-2 px-4">
                 <Arrow
                     direction="down"
@@ -31,6 +32,8 @@ const QuadraticVoter: React.FC = () => {
                     onClick={() => handleArrowClick(true)}
                 />
             </div>
+
+            {/* TODO animate this */}
             {cost > 0 && (
                 <>
                     <div className="bg-slate-200 rounded-b-md text-slate-700 w-[60%]">
