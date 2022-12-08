@@ -3,7 +3,11 @@ import "styles/home.scss";
 import { Link } from "react-router-dom";
 import ProposalSummaryCard, { Proposal } from "components/ProposalSummaryCard";
 
+import useMetamask, { networks } from "hooks/useMetamask";
+
 const Home: React.FC = () => {
+    const { status, connect, isGoerli, switchChain } = useMetamask();
+
     const staticProposals: Proposal[] = [
         {
             title: "Make unicorns real",
@@ -28,22 +32,41 @@ const Home: React.FC = () => {
         },
     ];
 
-    return (
-        <section>
-            <h1>Home</h1>
-            <div>
-                <Link to="/propose">
-                    <button className="btn-1">Propose</button>
-                </Link>
-            </div>
-
-            <section className="flex flex-col gap-4 mt-6">
-                <h2 className="text-[28px] font-bold underline">Active Proposals</h2>
-                {staticProposals.map((proposal, index) => (
-                    <ProposalSummaryCard key={index} proposal={proposal} />
-                ))}
+    if (status === "connected" && !isGoerli) {
+        return (
+            <section className="flex flex-col justify-center items-center h-[100vh] mt-[-20%]">
+                <h1 className="text-[42px]">⚠️ Please switch to goerli test net ⚠️</h1>
+                <button className="btn-1" onClick={() => switchChain(networks.goerli)}>
+                    Switch to goerli
+                </button>
             </section>
-        </section>
+        );
+    }
+
+    return (
+        <>
+            <section>
+                <h1>Home</h1>
+                <div>
+                    <Link to="/propose">
+                        <button className="btn-1">Propose</button>
+                    </Link>
+                </div>
+
+                {status === "notConnected" && (
+                    <button className="btn-1 mt-2" onClick={connect}>
+                        Connect to Metamask
+                    </button>
+                )}
+
+                <section className="flex flex-col gap-4 mt-6">
+                    <h2 className="text-[28px] font-bold underline">Active Proposals</h2>
+                    {staticProposals.map((proposal, index) => (
+                        <ProposalSummaryCard key={index} proposal={proposal} />
+                    ))}
+                </section>
+            </section>
+        </>
     );
 };
 

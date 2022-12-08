@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import Arrow from "svgs/ArrowSvg";
 
+import useMetamask from "hooks/useMetamask";
+
 const QuadraticVoter: React.FC = () => {
     const [votes, setVotes] = useState(0);
     const cost = votes * votes;
+
+    // TODO if we had the proposal state STOREd somewhere shared then the arrows could update in real time
 
     const handleArrowClick = (isUp: boolean) => {
         if (isUp) setVotes(votes + 1);

@@ -21,10 +21,6 @@ const ProposalSummaryCard: React.FC<ProposalSummaryCardProps> = ({
     const percentYay = (proposal.yayVotes / totalVotes) * 100;
     const percentNay = (proposal.nayVotes / totalVotes) * 100;
 
-    console.log("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥");
-    console.log("percentYay:", percentYay);
-    console.log("percentNay:", percentNay);
-
     return (
         <div className="border-white border-solid border-2 rounded-md p-2 flex flex-col items-center gap-2">
             <h3 className="font-bold text-[24px]">{proposal.title}</h3>
