@@ -1,6 +1,3 @@
-# Team10Project
-EthDenver bootcamp team project
-
 # High Resolution Democracy
 
 ## tl;dr
