@@ -64,14 +64,16 @@ const Home: React.FC = () => {
         <>
             <section className="flex flex-col items-center">
                 <h1>Home</h1>
-                <div className="flex gap-2 justify-center">
-                    <Link to="/propose">
-                        <button className="btn-1">Propose</button>
-                    </Link>
-                    <Link to="/register">
-                        <button className="btn-1">Register</button>
-                    </Link>
-                </div>
+                {status !== "notConnected" && (
+                    <div className="flex gap-2 justify-center">
+                        <Link to="/propose">
+                            <button className="btn-1">Propose</button>
+                        </Link>
+                        <Link to="/register">
+                            <button className="btn-1">Register</button>
+                        </Link>
+                    </div>
+                )}
 
                 {status === "notConnected" && (
                     <button className="btn-1 mt-2" onClick={connect}>
